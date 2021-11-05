@@ -43,13 +43,13 @@ $(dev_cff): $(dev_mcf) $(dicos)
 
 
 $(train_mcf): $(train_proj_conll)
-	python3 ../src/conll2mcf.py $(train_proj_conll) $(mcd_pgle) > $(train_mcf)
+	python3 ../src/conll2mcf.py $(train_proj_conll) $(mcd_pgle) $(lang) > $(train_mcf)
 
 $(dev_mcf): $(dev_proj_conll)
-	python3 ../src/conll2mcf.py $(dev_proj_conll) $(mcd_pgle) > $(dev_mcf)
+	python3 ../src/conll2mcf.py $(dev_proj_conll) $(mcd_pgle) $(lang) > $(dev_mcf)
 
 $(test_mcf): 
-	python3 ../src/conll2mcf.py $(test_conll) $(mcd_pgle) > $(test_mcf)
+	python3 ../src/conll2mcf.py $(test_conll) $(mcd_pgle) $(lang) > $(test_mcf)
 
 
 $(train_proj_conll):

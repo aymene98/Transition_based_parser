@@ -2,6 +2,7 @@ import sys
 from WordBuffer import WordBuffer
 from Word import Word
 from Mcd import Mcd
+import Suffixes
 
 if len(sys.argv) < 3 :
     print('usage:', sys.argv[0], 'conllFile mcdFile')
@@ -19,6 +20,7 @@ def simplifyLabel(label):
 
 conlluFilename = sys.argv[1]
 mcdFilename = sys.argv[2]
+lang = sys.argv[3]
 
 mcd = Mcd(mcdFilename)
 
@@ -28,6 +30,7 @@ except IOError:
     print(conlluFilename, " : ce fichier n'existe pas")
     exit(1)
 
+suffixes = Suffixes.Suffixe(lang, 100)
 tokens = []
 wordBuffer = WordBuffer()
 for ligne in conlluFile:
@@ -39,7 +42,7 @@ for ligne in conlluFile:
         next
     else :
         ligne = ligne.rstrip()
-#                                1	Je	il	PRON	_	Number=Sing|Person=1|PronType=Prs	2	nsubj	_	_
+#                                1  Je  il  PRON    _   Number=Sing|Person=1|PronType=Prs   2   nsubj   _   _
         tokens = ligne.split("\t")
         if '-' not in tokens[0]:
             w = Word()
@@ -56,6 +59,11 @@ for ligne in conlluFile:
             w.setFeat('X2', tokens[8])
             w.setFeat('X3', tokens[9])
             w.setFeat('EOS', '0')
+            current_suffixe = Suffixes.getSuffixe(tokens[1])
+            if (current_suffixe in suffixes.content) == True:
+                w.setFeat('SUFFIXE', current_suffixe)
+            else:
+                w.setFeat('SUFFIXE', '§§§')
             wordBuffer.addWord(w)
 
 conlluFile.close();
