@@ -25,6 +25,8 @@ class Dico:
                 return self.array[code]
 
         def getSize(self):
+                if self.name == 'FORM':
+                        return 100
                 return len(self.array)
 
         def printToFile(self, dicoFile):

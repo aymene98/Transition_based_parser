@@ -1,8 +1,14 @@
 from Dico import Dico
+import fasttext.util
+import fasttext
+import numpy as np
 
 class Dicos:
-        def __init__(self, mcd=False, fileName=False):
+        def __init__(self, lang, mcd=False, fileName=False):
                 self.content = {}
+                self.lang = lang
+                file_name = '../cc.'+self.lang+'.100.bin'
+                self.ft = fasttext.load_model(file_name)
                 if mcd :
                         self.initializeWithMcd(mcd)
                 if fileName :
@@ -99,6 +105,10 @@ class Dicos:
                 dico = self.getDico(dicoName)
                 if dico == None :
                         return None
+                if dicoName == 'FORM' :
+                        #return the embedding of the word symbol
+                        em = self.ft.get_word_vector(symbol)
+                        return em
                 return dico.getCode(symbol)
 
         def getSymbol(self, dicoName, code) :

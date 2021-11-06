@@ -29,17 +29,17 @@ eval: $(test_mcf_hyp)
 
 
 $(test_mcf_hyp): $(test_mcf) $(model)
-	python3 ../src/tbp_decode.py $(test_mcf) $(model) $(dicos) $(feat_model) $(mcd_pgle) $(test_word_limit) > $(test_mcf_hyp)
+	python3 ../src/tbp_decode.py $(test_mcf) $(model) $(dicos) $(feat_model) $(mcd_pgle) $(test_word_limit) $(lang) > $(test_mcf_hyp)
 
 $(model): $(train_cff) $(dev_cff)
 	python3 ../src/tbp_train.py $(train_cff) $(dev_cff) $(model)
 
 
 $(train_cff): $(train_mcf) $(dicos)
-	python3 ../src/mcf2cff.py $(train_mcf) $(feat_model) $(mcd_pgle) $(dicos) $(train_cff) $(train_word_limit)
+	python3 ../src/mcf2cff.py $(train_mcf) $(feat_model) $(mcd_pgle) $(dicos) $(train_cff) $(train_word_limit) $(lang)
 
 $(dev_cff): $(dev_mcf) $(dicos)
-	python3 ../src/mcf2cff.py $(dev_mcf) $(feat_model) $(mcd_pgle) $(dicos) $(dev_cff) $(dev_word_limit)
+	python3 ../src/mcf2cff.py $(dev_mcf) $(feat_model) $(mcd_pgle) $(dicos) $(dev_cff) $(dev_word_limit) $(lang)
 
 
 $(train_mcf): $(train_proj_conll)
@@ -59,7 +59,7 @@ $(dev_proj_conll):
 	python3 ../src/remove_non_projective_sentences_from_conll.py $(dev_conll) > $(dev_proj_conll)
 
 $(dicos): $(train_mcf)
-	python3 ../src/create_dicos.py $(train_mcf) $(mcd_pgle) $(dicos)
+	python3 ../src/create_dicos.py $(train_mcf) $(mcd_pgle) $(dicos) $(lang)
 
 clean:
 	- rm $(train_proj_conll)

@@ -42,6 +42,7 @@ class FeatModel:
                 inputVectorSize += dicos.getDico(feat).getSize()
             else:
                 inputVectorSize += 1
+        #return 0
         return inputVectorSize
 
     def getInputSize(self):
@@ -66,14 +67,21 @@ class FeatModel:
         return self.featArray[featIndex][3]
 
     def buildInputVector(self, featVec, dicos):
-        inputVector = np.zeros(self.inputVectorSize, dtype="int32")
+        inputVector = np.zeros(self.inputVectorSize, dtype="float32")
         origin = 0
         for i in range(self.getNbFeat()):
-            if self.getFeatType(i)=="W":
+            if self.getFeatType(i)=="W" and self.getFeatLabel(i)!='FORM':
                 label = self.getFeatLabel(i)
                 size = dicos.getDico(label).getSize()
                 position = dicos.getCode(label, featVec[i])
                 #print('featureName = ', featureName, 'value =', featVec[i], 'size =', size, 'position =', position, 'origin =', origin)
                 inputVector[origin + position] = 1
                 origin += size
+            if self.getFeatType(i)=="W" and self.getFeatLabel(i)=='FORM':
+                em = dicos.getCode(self.getFeatLabel(i), featVec[i])
+                for i in range(len(em)):
+                    inputVector[origin] = em[i]
+                    origin+=1
+                
+        #return None
         return inputVector, origin

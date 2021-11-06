@@ -10,11 +10,12 @@ if len(sys.argv) < 4 :
 mcfFileName = sys.argv[1]
 mcdFileName = sys.argv[2]
 dicoFileName = sys.argv[3]
+lang = sys.argv[4]
 
 mcd = Mcd(mcdFileName)
 
 print('populating dicos from file ', mcfFileName)
-dicos = Dicos(mcd)
+dicos = Dicos(lang=lang, mcd=mcd)
 dicos.populateFromMcfFile(mcfFileName, mcd, verbose=False)
 print('saving dicos in file ', dicoFileName)
 dicos.printToFile(dicoFileName)

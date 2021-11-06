@@ -46,7 +46,7 @@ def prepareData(mcd, mcfFile, featModel, moves, filename, wordsLimit) :
             featVec = c.extractFeatVec(featModel)
             inputVector, index = featModel.buildInputVector(featVec, dicos)
             # here we can add configurational features bcz here we can see the config
-            inputVector = configuration_features(inputVector, c, featModel, index)
+            #inputVector = configuration_features(inputVector, c, featModel, index)
             np.savetxt(dataFile, inputVector, fmt="%s", delimiter='  ', newline=' ')
             dataFile.write('\n')
             np.savetxt(dataFile, outputVector, fmt="%s", delimiter='  ', newline=' ')
@@ -77,13 +77,14 @@ mcdFileName =       sys.argv[3]
 dicosFileName =     sys.argv[4]
 dataFileName =      sys.argv[5]
 wordsLimit =    int(sys.argv[6])
+lang = sys.argv[7]
 verbose = False
 
 print('reading mcd from file :', mcdFileName)
 mcd = Mcd(mcdFileName)
 
 print('reading dicos from file :', dicosFileName)
-dicos = Dicos(fileName = dicosFileName)
+dicos = Dicos(fileName = dicosFileName, lang=lang)
 
 #dicos.populateFromMcfFile(mcfFileName, mcd, verbose=False)
 #print('saving dicos in file :', dicosFileName)

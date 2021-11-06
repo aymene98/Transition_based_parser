@@ -22,11 +22,10 @@ def prepareWordBufferForDecode(buffer):
         word.setFeat('GOV', str(Word.invalidGov()))
         word.setFeat('LABEL', Word.invalidLabel())
 
-
 verbose = False
-if len(sys.argv) != 7 :
-    print('usage:', sys.argv[0], 'mcf_file model_file dicos_file feat_model mcd_file words_limit')
-    exit(1)
+#if len(sys.argv) != 7 :
+#    print('usage:', sys.argv[0], 'mcf_file model_file dicos_file feat_model mcd_file words_limit')
+#    exit(1)
 
 mcf_file =       sys.argv[1]
 model_file =     sys.argv[2]
@@ -34,6 +33,7 @@ dicos_file =     sys.argv[3]
 feat_model =     sys.argv[4]
 mcd_file =       sys.argv[5]
 wordsLimit = int(sys.argv[6])
+lang =       sys.argv[7]
 
 
 sys.stderr.write('reading mcd from file :')
@@ -42,7 +42,7 @@ sys.stderr.write('\n')
 mcd = Mcd(mcd_file)
 
 sys.stderr.write('loading dicos\n')
-dicos = Dicos(fileName=dicos_file)
+dicos = Dicos(fileName=dicos_file, lang=lang)
 
 moves = Moves(dicos)
 

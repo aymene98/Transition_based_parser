@@ -3,5 +3,5 @@
 2   LABEL      SYM	KEEP
 3   EOS	       SYM	KEEP
 4	SUFFIXE	   SYM	KEEP
-5   LEMMA      SYM  IGNORE
-6   FORM       SYM  IGNORE
+5   LEMMA      SYM  KEEP
+6   FORM       SYM  KEEP

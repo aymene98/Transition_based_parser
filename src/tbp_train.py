@@ -23,7 +23,7 @@ def readData(dataFilename) :
     for ligne in dataFile:
         #print(ligne)
         vector = ligne.split()
-        vector[:] = list(map(int, vector))
+        vector[:] = list(map(float, vector))
         if inputLine == True:
             #print("input ", vector)
             allX.append(vector)
