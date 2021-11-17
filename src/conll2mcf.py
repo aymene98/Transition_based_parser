@@ -3,6 +3,7 @@ from WordBuffer import WordBuffer
 from Word import Word
 from Mcd import Mcd
 import Suffixes
+import Prefixes
 
 if len(sys.argv) < 3 :
     print('usage:', sys.argv[0], 'conllFile mcdFile')
@@ -31,6 +32,7 @@ except IOError:
     exit(1)
 
 suffixes = Suffixes.Suffixe(lang, 100)
+prefixes = Prefixes.Prefixe(lang, 100)
 tokens = []
 wordBuffer = WordBuffer()
 for ligne in conlluFile:
@@ -64,6 +66,11 @@ for ligne in conlluFile:
                 w.setFeat('SUFFIXE', current_suffixe)
             else:
                 w.setFeat('SUFFIXE', '§§§')
+            current_prefixe = Prefixes.getPrefixe(tokens[1])
+            if (current_prefixe in prefixes.content) == True:
+                w.setFeat('PREFIXE', current_prefixe)
+            else:
+                w.setFeat('PREFIXE', '§§§')
             wordBuffer.addWord(w)
 
 conlluFile.close();

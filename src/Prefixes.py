@@ -1,25 +1,26 @@
 import string
 from WordBuffer import WordBuffer
 
-def getSuffixe(word, n = 3):
-    last_chars = word[-n:]
+def getPrefixe(word, n = 3):
+    if len(word) < n:
+        while len(word) < n: word = word + 'µ'
+        return word.lower()
+    return word[:n].lower()
     #for i in range(len(last_chars)):
     #    if (last_chars[i] in string.ascii_letters) == False:
     #        last_chars[i] = '@'
-    while len(last_chars) < n: last_chars = "µ" + last_chars
-    return last_chars.lower()
 
 def getCode(letter):
     characters = "µ" + "@" + string.ascii_lowercase
     return characters.index(letter)
 
-class Suffixe:
+class Prefixe:
 
     def __init__(self, lang, n = 100):
         self.content = {}
         for dataset in ['train_', 'dev_', 'test_']:
             self.readFromConllu('../data/'+dataset+lang+'.conllu')
-        self.keepFrequentSuffixes(n)
+        self.keepFrequentPrefixes(n)
         #self.listToString()
 
     def readFromConllu(self, conlluFilename):
@@ -42,19 +43,19 @@ class Suffixe:
                 #                                1  Je  il  PRON    _   Number=Sing|Person=1|PronType=Prs   2   nsubj   _   _
                 tokens = ligne.split("\t")
             if '-' not in tokens[0]:
-                suffixe = getSuffixe(tokens[1])
-                if (suffixe in self.content) == True:
-                    self.content[suffixe] += 1
+                prefixe = getPrefixe(tokens[1])
+                if (prefixe in self.content) == True:
+                    self.content[prefixe] += 1
                 else:
-                    self.content[suffixe] = 1
+                    self.content[prefixe] = 1
         return self.content
 
-    def keepFrequentSuffixes(self, n):
+    def keepFrequentPrefixes(self, n):
         sortedValues = dict(sorted(self.content.items(), key=lambda item: item[1], reverse = True))
         self.content = list(sortedValues.keys())[:n]
         return self.content
 
     #def listToString(self):
     #    for i in range(len(self.content)):
-    #        self.content[i] = self.content[i][0] + self.content[i][1] + self.content[i][2]
+    #        self.content[i] = self.content[i][0] + self.content[i][1]
     #    return self.content
