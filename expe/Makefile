@@ -2,7 +2,7 @@ train_conll=../data/train_$(lang).conllu
 train_proj_conll=./out/train_$(lang)_proj.conllu
 train_mcf=./out/train_$(lang)_pgle.mcf
 train_cff=./out/train_$(lang).cff
-train_word_limit=10000
+train_word_limit=100000
 
 dev_conll=../data/dev_$(lang).conllu
 dev_proj_conll=./out/dev_$(lang)_proj.conllu

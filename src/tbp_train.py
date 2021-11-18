@@ -1,6 +1,7 @@
 import sys
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation, Dropout
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, Activation, PReLU
+from tensorflow.keras.regularizers import L2
 import numpy as np
 
 def readData(dataFilename) :
@@ -52,8 +53,22 @@ devInputSize, devOutputSize, x_dev, y_dev = readData(cffDevFileName)
 
 # we could change the model (add more layers, and batch norm) and maybe train for more epochs
 model = Sequential()
-model.add(Dense(units=128, activation='relu', input_dim=inputSize))
-model.add(Dropout(0.4))
+model.add(Dense(units=500, input_dim=inputSize, kernel_regularizer=L2(0.001)))
+model.add(Dropout(0.2))
+model.add(BatchNormalization())
+#model.add(Activation('relu'))
+model.add(PReLU())
+
+model.add(Dense(units=500 ))
+model.add(Dropout(0.2))
+model.add(BatchNormalization())
+model.add(Activation('relu'))
+
+model.add(Dense(units=200)) 
+model.add(Dropout(0.2))
+model.add(BatchNormalization())
+model.add(Activation('relu'))
+
 model.add(Dense(units=outputSize, activation='softmax'))
 model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
