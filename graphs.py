@@ -1,17 +1,51 @@
 import matplotlib.pyplot as plt
 import numpy as np
+# Values for the graphs
+# Preffixes (100):
+mean_las = [42.183,46.805,45.965] 
+std_las = [5.182,6.103,6.432]
+#yerr = std_las
+mean_uas = [51.793,55.848,53.295] 
+std_uas = [2.677,5.140,5.323]
+# Preffixes (150):
+"""
+mean_las = [41.368,48.12,47.538] 
+std_las = [5.160,5.972,7.218]
+#yerr = std_las
+mean_uas = [50.623,56.813,55.753] 
+std_uas = [3.447,5.377,	5.506]
 
+"""
+# Suffixes (100):
+"""
+mean_las = [44.73,	45.673	,46.743] 
+std_las = [6.103,5.157,	7.160]
+#yerr = std_las
+mean_uas = [54.358,	54.153,	53.93] 
+std_uas = [3.514,	3.713,	6.502]
+
+"""
+# Suffixes (150):
+"""
+mean_las = [44.458,	48.232,	48.59] 
+std_las = [5.045,4.805,5.938]
+#yerr = std_las
+mean_uas = [54.323,56.558,56.693] 
+std_uas = [4.901,2.803,5.401]
+
+"""
 fig = plt.figure()
-x = [1,2,3]
+x = [2,3,4]
 
-mean = [42.183,46.805,45.965] #
-std = [5.182,6.103,6.432]
-yerr = std
-
-plt.errorbar(x, mean, yerr=yerr, label='both limits (default)')
-plt.ylabel('LAS')
-plt.xlabel('Taille des Affixes')
-plt.title('LAS Moyanne et écart type x Taille des Preffixes')
+plt.errorbar(x, mean_las, yerr=std_las, capsize = 5, fmt='bo',label = "LAS")
+plt.errorbar(x, mean_uas, yerr=std_uas, capsize = 5, fmt='ro',label = "UAS")
+#plt.ylabel('LAS')
+plt.xlabel('Taille des Preffixes')
+plt.title('A')
+my_xticks = [2,3,4]#['2',"","","","3","","", "","4"]
+plt.xticks(x, my_xticks)
+plt.ylim([0, 100])
+plt.legend()
 plt.show()
 """
 # Create lists for the plot
