@@ -25,7 +25,7 @@ results = ./out/$(lang).res
 mcd_pgle=PGLE.mcd
 
 eval: $(test_mcf_hyp)
-	python3 ../src/eval_mcf.py $(test_mcf) $(test_mcf_hyp) $(mcd_pgle) $(mcd_pgle) $(lang) > $(results)
+	python3 ../src/eval_mcf.py $(test_mcf) $(test_mcf_hyp) $(mcd_pgle) $(mcd_pgle) $(lang) True > $(results)
 
 
 $(test_mcf_hyp): $(test_mcf) $(model)

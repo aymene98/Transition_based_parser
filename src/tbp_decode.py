@@ -11,6 +11,8 @@ from tensorflow.keras.models import load_model
 from FeatModel import FeatModel
 import numpy as np
 from Configuration_features import configuration_features
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 
 def prepareWordBufferForDecode(buffer):
     """Add to every word of the buffer features GOVREF and LABELREF.
